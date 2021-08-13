@@ -1,0 +1,18 @@
+{
+  "id": 1992756303,
+  "category": {
+    "id": 1,
+    "name": "AFBT534767"
+  },
+  "name": "Tom",
+  "photoUrls": [
+    "string"
+  ],
+  "tags": [
+    {
+      "id": 20210812,
+      "name": "data"
+    }
+  ],
+  "status": "sold"
+}
