@@ -12,7 +12,7 @@ import java.nio.file.Paths;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.withNoArgs;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.*;
 
 // 3 - Classe
 public class Pet {
@@ -44,15 +44,15 @@ public class Pet {
         .then() // Então
                 .log().all()
                 .statusCode(200)
-                .body("name", is("Tom") )
+                .body("name", is("Mel") )
                 .body("status", is("available"))
-                .body("category.name", is("AFBT534767"))
+                .body("category.name", is("AFBT534754"))
                 .body("tags.name", contains("data"))
         ;
     }
     @Test (priority = 2)
     public void consultarOet(){
-        String petId = "1992756303";
+        String petId = "1992756354";
 
         String token =
         given()
@@ -63,8 +63,8 @@ public class Pet {
         .then()
                 .log().all()
                 .statusCode(200)
-                .body("name", is("Tom"))
-                .body("category.name", is("AFBT534767"))
+                .body("name", is("Mel"))
+                .body("category.name", is("AFBT534754"))
                 .body("status", is("available"))
         .extract()
                 .path("category.name")
@@ -88,7 +88,7 @@ public class Pet {
         .then()
                 .log().all()
                 .statusCode(200)
-                .body("name", is("Tom"))
+                .body("name", is("Mel"))
                 .body("status", is ("sold"))
         ;
     }
@@ -107,6 +107,26 @@ public class Pet {
                 .body("code", is(200))
                 .body("type", is("unknown"))
                 .body("message", is("1992756303"))
+
+        ;
+    }
+    @Test (priority = 5)
+    public void consultarPetPorStatus() {
+        String status = "available";
+
+        given() // Dado que
+                .contentType("application/json")
+                .log().all()
+        .when()
+                .get(uri + "/findByStatus?status=available" + status)
+        .then()
+                .log().all()
+                .statusCode(200)
+                //.body("name", contains("[\"Mel\"]")) // To Do: verificar em array
+
+
+
+
 
         ;
     }
